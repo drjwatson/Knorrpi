@@ -5,6 +5,12 @@
         "includeFiles": "knorrpi.json"
       }
     },
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "/api/server.js"
+      }
+    ],
     "routes": [
       {
         "src": "/api/(.*)",
