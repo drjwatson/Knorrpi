@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knorr PI Guy</title>
+    <title>Knorr PI</title>
 </head>
 <body>
     <div id="staffList">
@@ -11,52 +11,46 @@
 </body>
 
 <script>
-
-// Define your JSON array with initial data
-let data = [
-    { name: "Aaron", count: 0 },
-    { name: "Joel", count: 0 },
-    { name: "Joe", count: 0 },
-    { name: "Joey", count: 0 },
-    { name: "Josh", count: 0 },
-    { name: "Madeleine", count: 0 },
-    { name: "Ed", count: 0 }
-];
+let data = [];
 
 // Function to fetch the data
 async function fetchData() {
     try {
-        const response = await fetch('knorrpi.json');
+        const response = await fetch('/api/staff/');
         data = await response.json();
+        createStaffItems();
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
 // Function to increment count by name
-function incrementCountByName(name) {
+async function incrementCount(id) {
+    console.log(id);
     console.log(data);
-    const item = data.find(item => item.name === name);
-    if (item) {
-        item.count++;
-        saveData();
-    } else {
-        console.error('Item not found:', name);
-    }
+    console.log(data.find(item => item.id == id));
+
+    const res = await fetch(`/api/staff/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            count: data.find(item => item.id == id).count + 1
+        })
+    })
 }
 
-async function saveData() {
-    try {
-        await fetch('knorrpi.json', {
-            method: 'POST', // or 'POST' if needed
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-    } catch (error) {
-        console.error('Error saving data:', error);
-    }
+async function decreaseCount(id) {
+    const res = await fetch(`/api/staff/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            count: data.find(item => item.id === id).count - 1
+        })
+    })
 }
 
 
@@ -78,27 +72,23 @@ function createStaffItems() {
         const incrementButton = document.createElement('button');
         incrementButton.textContent = 'Increment';
         incrementButton.addEventListener('click', () => {
-            incrementCountByName(item.name);
-            createStaffItems();
+            incrementCount(item.id);
+            fetchData();
         });
         listItem.appendChild(incrementButton);
 
         const decreaseButton = document.createElement('button');
         decreaseButton.textContent = 'Decrease';
         decreaseButton.addEventListener('click', () => {
-            item.count--;
-            saveData();
-            createStaffItems();
+            decreaseCount(item.id);
+            fetchData();
         });
         listItem.appendChild(decreaseButton);
 
         staffList.appendChild(listItem);
     });
-
 }
 
 fetchData();
-createStaffItems();
-
 </script>
 </html>
