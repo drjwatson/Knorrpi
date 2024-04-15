@@ -9,16 +9,10 @@
       {
         "source": "/api/(.*)",
         "destination": "/api/server.js"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/api/server.js"
       },
       {
-        "src": "/",
-        "dest": "/index.html"
+        "source": "/(.*)",
+        "destination": "/knorrpi.html"
       }
     ]
 }
