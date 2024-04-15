@@ -20,7 +20,7 @@ async function fetchData() {
         data = await response.json();
         createStaffItems();
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.log('Error fetching data:', error);
     }
 }
 
