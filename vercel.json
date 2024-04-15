@@ -1,0 +1,18 @@
+{
+    "functions": {
+      "api/server.js": {
+        "memory": 1024,
+        "includeFiles": "knorrpi.json"
+      }
+    },
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/server.js"
+      },
+      {
+        "src": "/",
+        "dest": "/index.html"
+      }
+    ]
+}

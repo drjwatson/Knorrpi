@@ -1,0 +1,39 @@
+{
+  "staff": [
+    {
+      "id": "1",
+      "name": "Aaron",
+      "count": 9
+    },
+    {
+      "id": "2",
+      "name": "Joel",
+      "count": -3
+    },
+    {
+      "id": "3",
+      "name": "Joe",
+      "count": 0
+    },
+    {
+      "id": "4",
+      "name": "Joey",
+      "count": 0
+    },
+    {
+      "id": "5",
+      "name": "Josh",
+      "count": 0
+    },
+    {
+      "id": "6",
+      "name": "Madeleine",
+      "count": 1
+    },
+    {
+      "id": "7",
+      "name": "Ed",
+      "count": 1
+    }
+  ]
+}
